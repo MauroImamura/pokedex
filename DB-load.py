@@ -10,7 +10,8 @@ import connection as c_s
 
 def Main():
       conn = pyodbc.connect(c_s.Connection_string())
-      for i in range(1,152):
+      final_index = 152
+      for i in range(1, final_index):
             #request from API
             data = Request(i)
             #query and load to DB
