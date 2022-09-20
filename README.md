@@ -9,9 +9,9 @@ The source of information about Pokemons is the PokeAPI, avaliable at <a href="h
 First of all, you need to install the libs using pip. For this project I'm using pip version 21.3.1
 Run the installation command for requests and pyodbc as following:
 
->pip install requests==2.27.1
+    pip install requests==2.27.1
 
->pip install pyodbc==4.0.34
+    pip install pyodbc==4.0.34
 
 After installing it, you must create a new DB on SQL Server. Once you have it, you can run the queries in db_queries.sql file for creating the schema, tables and procedures that will be used. Although all the commands are in the same file, you might need to run them separately.
 
