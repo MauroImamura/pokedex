@@ -6,7 +6,7 @@
 
 import requests
 import pyodbc
-import local_connection as c_s
+import connection as c_s
 
 def Main():
       final_index = 152
