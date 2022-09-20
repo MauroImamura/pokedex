@@ -1,7 +1,8 @@
-# POKEDEX
+# POKEDEX DATABASE
 Pokemon database based on data from web API.
 
 This set of scripts are a sample method for data acquisition from web api. The information is saved in a SQL Server DB.
+The source of information about Pokemons is the PokeAPI, avaliable at <a href="https://pokeapi.co/">https://pokeapi.co/</a>
 
 ## Initial Setup
 
@@ -12,7 +13,7 @@ Run the installation command for requests and pyodbc as following:
 
 >pip install pyodbc==4.0.34
 
-After installing it, you must create a new DB on SQL Server. Once you have it, you can run the queries in db_queries.sql file for creating the schema and tables that will be used.
+After installing it, you must create a new DB on SQL Server. Once you have it, you can run the queries in db_queries.sql file for creating the schema, tables and procedures that will be used. Although all the commands are in the same file, you might need to run them separately.
 
 ## Connection String
 

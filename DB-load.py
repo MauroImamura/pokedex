@@ -6,20 +6,21 @@
 
 import requests
 import pyodbc
-import connection as c_s
+import local_connection as c_s
 
 def Main():
-      conn = pyodbc.connect(c_s.Connection_string())
       final_index = 152
+      conn = pyodbc.connect(c_s.Connection_string())
+      ClearSTG(conn)
       for i in range(1, final_index):
             #request from API
             data = Request(i)
             #query and load to DB
             Load(data, conn)
+      RunProc(conn)
       conn.close()
       
 def Request(i):
-      #for i in range(1,2):
       url = f'https://pokeapi.co/api/v2/pokemon/{i}/'
       response = requests.get(url)
       if(response.status_code == 200):
@@ -36,11 +37,34 @@ def Request(i):
       return dict({'id': i_id, 'name': name, 'height': height, 'weight': weight, 'types': types, 'picture': sprite})
 
 def Load(data, conn):
-      query = f'''INSERT INTO stg.pokemon ("id", "name", "height", "weight", "picture")
+      query_pok = f'''INSERT INTO stg.pokemon ("id_pokemon", "name", "height_dm", "weight_hg", "picture")
                        VALUES({data["id"]}, '{data["name"]}', {data["height"]}, {data["weight"]}, '{data["picture"]}')
                      '''
       cursor = conn.cursor()
-      cursor.execute(query)
+      cursor.execute(query_pok)
+      for t in data["types"]:
+            query_types = f'''INSERT INTO stg.types ("id_pokemon", "type")
+                 VALUES({data["id"]}, '{t}')
+               '''
+            cursor.execute(query_types)
+      cursor.commit()
+      return
+
+def ClearSTG(conn):
+      trunc_pok = f'TRUNCATE TABLE stg.pokemon'
+      trunc_types = f'TRUNCATE TABLE stg.types'
+      cursor = conn.cursor()
+      cursor.execute(trunc_pok)
+      cursor.execute(trunc_types)
+      cursor.commit()
+      return
+
+def RunProc(conn):
+      proc_pok = f'EXEC dbo.pokemon_load'
+      proc_types = f'EXEC dbo.types_load'
+      cursor = conn.cursor()
+      cursor.execute(proc_pok)
+      cursor.execute(proc_types)
       cursor.commit()
       return
 
