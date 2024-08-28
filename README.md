@@ -5,7 +5,7 @@ This set of scripts are a sample method for data acquisition from web api. The i
 The source of information about Pokemons is the PokeAPI, avaliable at <a href="https://pokeapi.co/">https://pokeapi.co/</a>
 
 ## Initial Setup
-
+ 
 First of all, you need to install the libs using pip. For this project I'm using pip version 21.3.1
 Run the installation command for requests and pyodbc as following:
 
